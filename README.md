@@ -6,7 +6,7 @@
 Add the following to a `Dockerfile` in the root of your app:
 
 ```Dockerfile
-FROM jshimko/meteor-launchpad:latest
+FROM keyrockeu/meteor-launchpad:latest
 ```
 
 Then you can build the image with:
@@ -75,9 +75,6 @@ To use any of them, create a `launchpad.conf` in the root of your app and add an
 # (default: undefined)
 APT_GET_INSTALL="curl git wget"
 
-# Install a custom Node version (default: latest 8.x)
-NODE_VERSION=8.9.0
-
 # Installs the latest version of each (default: all false)
 INSTALL_MONGO=true
 INSTALL_PHANTOMJS=true
@@ -92,7 +89,6 @@ If you prefer not to have a config file in your project, your other option is to
 docker build \
   --build-arg APT_GET_INSTALL="curl git wget" \
   --build-arg INSTALL_MONGO=true \
-  --build-arg NODE_VERSION=8.9.0 \
   -t myorg/myapp:latest .
 ```
 
