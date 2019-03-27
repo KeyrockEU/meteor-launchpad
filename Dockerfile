@@ -1,7 +1,5 @@
-FROM debian:stretch
+FROM node:8.9.0-stretch
 MAINTAINER Jeremy Shimko <jeremy.shimko@gmail.com>
-
-RUN groupadd -r node && useradd -m -g node node
 
 # Gosu
 ENV GOSU_VERSION 1.10
@@ -26,9 +24,6 @@ RUN chmod -R 750 $BUILD_SCRIPTS_DIR
 # Define all --build-arg options
 ONBUILD ARG APT_GET_INSTALL
 ONBUILD ENV APT_GET_INSTALL $APT_GET_INSTALL
-
-ONBUILD ARG NODE_VERSION
-ONBUILD ENV NODE_VERSION ${NODE_VERSION:-8.9.0}
 
 ONBUILD ARG NPM_TOKEN
 ONBUILD ENV NPM_TOKEN $NPM_TOKEN
@@ -55,7 +50,6 @@ ONBUILD COPY . $APP_SOURCE_DIR
 # install all dependencies, build app, clean up
 ONBUILD RUN cd $APP_SOURCE_DIR && \
   $BUILD_SCRIPTS_DIR/install-deps.sh && \
-  $BUILD_SCRIPTS_DIR/install-node.sh && \
   $BUILD_SCRIPTS_DIR/install-phantom.sh && \
   $BUILD_SCRIPTS_DIR/install-graphicsmagick.sh && \
   $BUILD_SCRIPTS_DIR/install-mongo.sh && \
